@@ -175,6 +175,7 @@ const App: React.FC = () => {
       <Navbar 
         cartCount={cartItemCount} 
         onOpenCart={() => setIsCartOpen(true)} 
+        onOpenTrack={() => setIsFindModalOpen(true)}
         currentTheme={theme}
         onToggleTheme={() => {
           const next = theme === 'dark' ? 'light' : 'dark';
@@ -201,11 +202,6 @@ const App: React.FC = () => {
                 <strong className="text-[var(--text-color)] font-black text-xs tracking-tight">{PICKUP_LOCATION}</strong>
               </div>
             </div>
-
-            <button onClick={() => setIsFindModalOpen(true)} className="mt-1 flex items-center gap-2 text-[var(--text-muted)] hover:text-pink-400 px-4 py-2 text-[9px] font-black uppercase tracking-[0.2em]">
-              <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-              Track Receipt
-            </button>
           </div>
         </header>
 
@@ -239,15 +235,32 @@ const App: React.FC = () => {
         </section>
       </main>
 
-      <footer className="px-8 py-20 text-center bg-slate-500/5 border-t border-[var(--border-color)] flex flex-col items-center gap-12 w-full">
-         <h3 className="text-gradient-primary font-kampung text-4xl font-black uppercase tracking-tighter">AIR BATU MALAYSIA</h3>
-         <div className="space-y-4">
-           <p className="text-[14px] font-black uppercase tracking-[0.2em] font-kampung">© 2026 AIR BATU MALAYSIA</p>
-           {/* Directly opens dashboard now, bypassing login */}
-           <button onClick={() => setIsAdmin(true)} className="text-[10px] text-slate-500 hover:text-emerald-500 underline uppercase font-bold tracking-widest transition-colors py-1">Staff Access</button>
+      <footer className="px-8 py-20 text-center bg-slate-500/5 border-t border-[var(--border-color)] flex flex-col items-center gap-10 w-full transition-colors">
+         <div className="flex flex-col items-center gap-2">
+           <h3 className="text-gradient-primary font-kampung text-4xl font-black uppercase tracking-tighter">AIR BATU MALAYSIA</h3>
+           <p className="text-[12px] font-black theme-text-muted uppercase tracking-[0.25em]">{PICKUP_LOCATION}</p>
+         </div>
+         
+         <div className="flex flex-col items-center gap-6">
+           <div className="flex flex-col items-center gap-1.5">
+             <p className="text-[15px] font-black uppercase tracking-[0.15em] font-kampung text-gradient-primary">
+               © 2026 AIR BATU MALAYSIA
+             </p>
+             <p className="text-[9px] font-black theme-text-muted uppercase tracking-[0.35em] opacity-80">
+               ALL RIGHTS RESERVED.
+             </p>
+           </div>
+           
+           <button 
+             onClick={() => setIsAdmin(true)} 
+             className="text-[10px] text-slate-500 hover:text-emerald-500 underline uppercase font-bold tracking-widest transition-colors py-1"
+           >
+             Staff Access
+           </button>
          </div>
       </footer>
 
+      {/* Floating Cart Preview */}
       {cartItemCount > 0 && !isAdmin && (
         <div className="fixed bottom-0 inset-x-0 z-40 pointer-events-none pb-[env(safe-area-inset-bottom,0px)]">
           <div className="max-w-[500px] mx-auto w-full px-4 sm:px-0">
