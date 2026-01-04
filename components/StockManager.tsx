@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import { Product } from '../types';
 import { PRODUCTS } from '../constants';
@@ -6,8 +7,8 @@ import { PRODUCTS } from '../constants';
 interface StockManagerProps {
   stocks: Record<string, number>;
   onUpdateStock: (id: string, delta: number) => void;
-  onRestockAll: () => void;
-  onLogout: () => void;
+  onRestockAll: () => void; // Now triggers worker action
+  onLogout: () => void; // Now triggers worker action (to clear active order if admin was active)
 }
 
 const StockManager: React.FC<StockManagerProps> = ({ stocks, onUpdateStock, onRestockAll, onLogout }) => {
